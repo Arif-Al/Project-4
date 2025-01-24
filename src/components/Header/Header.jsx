@@ -9,6 +9,7 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AppProvider, Navigation, Router } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
+import AddIcon from '@mui/icons-material/Add';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
 
@@ -97,6 +98,7 @@ const demoTheme = extendTheme({
   },
 });
 
+ 
 function useDemoRouter(initialPath: string): Router {
   const [pathname, setPathname] = React.useState(initialPath);
 
@@ -130,6 +132,7 @@ export default function Header(props: any) {
     <AppProvider
       navigation={NAVIGATION}
       router={router}
+      plus={<AddIcon/>}
       theme={demoTheme}
       window={demoWindow}
     >
