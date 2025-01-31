@@ -102,7 +102,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
           </ListItemIcon>
           {open && <ListItemText primary="English 02" />}
         </ListItem>
-        <ListItem button component={Link} to="/web-dev-frontend">
+        <ListItem button >
           <ListItemIcon>
             {" "}
             <span
