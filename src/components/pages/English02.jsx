@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton, Typography, Box, Button, Card } from "@mui/material";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -6,42 +6,57 @@ import AddToDriveIcon from "@mui/icons-material/AddToDrive";
 import backgroundImage from "../assets/English.jpg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Google from "../assets/logo_meet_2020q4_color_1x_web_48dp.png";
-import ArticleIcon from '@mui/icons-material/Article';
+import ArticleIcon from "@mui/icons-material/Article";
 import { useNavigate } from "react-router-dom";
- 
 
 const English02 = () => {
-
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("/classroom");
-  }
+  };
 
- 
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentAssignment, setCurrentAssignment] = useState({
+    id: null,
+    title: "",
+    date: "",
+  });
+
+  const handleOpenDialog = (assignment = { id: null, title: "", date: "" }) => {
+    setCurrentAssignment(assignment);
+    setOpenDialog(true);
+  };
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 } }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: "1200px", margin: "auto" }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: 3,
           flexWrap: "wrap",
-          gap: 2,
-          p: { xs: "0", md: 2 }, // Remove vertical padding by setting xs: 0
+          mb: 3,
         }}
       >
-        <Box>
+        {/* Buttons */}
+        <Box sx={{ display: "flex", gap: 3 }}>
           <Button>Stream</Button>
-        
           <Button onClick={handleNavigate}>Classwork</Button>
-           
           <Button>People</Button>
         </Box>
+
+        {/* Icons */}
         <Box sx={{ display: "flex", gap: 2 }}>
-          <VideocamIcon />
-          <CalendarTodayIcon />
-          <AddToDriveIcon />
+          <IconButton>
+            <VideocamIcon />
+          </IconButton>
+          <IconButton>
+            <CalendarTodayIcon />
+          </IconButton>
+          <IconButton>
+            <AddToDriveIcon />
+          </IconButton>
         </Box>
       </Box>
       <hr />
@@ -83,10 +98,11 @@ const English02 = () => {
               display: "flex",
               flexDirection: "column",
               gap: 2,
+              mb: { xs: 3, md: 0 }, // Add margin bottom on mobile view
             }}
           >
             {/* Meet Card */}
-            <Card sx={{ p: 2 }}>
+            <Card sx={{ p: 2, width: "100%" }}>
               <Box
                 sx={{
                   display: "flex",
@@ -116,7 +132,7 @@ const English02 = () => {
             </Card>
 
             {/* Upcoming Card */}
-            <Card sx={{ p: 2 }}>
+            <Card sx={{ p: 2, width: "100%" }}>
               <Typography variant="h6">Upcoming</Typography>
               <Typography sx={{ color: "gray", mt: 1 }}>
                 Woohoo, no work due in soon!
@@ -133,7 +149,7 @@ const English02 = () => {
           {/* Main Content */}
           <Box sx={{ flex: 1 }}>
             {/* Announcement Box */}
-            <Card sx={{ p: 2, mb: 3 }}>
+            <Card sx={{ p: 2, mb: 3 }} onClick={() => handleOpenDialog()}>
               <Typography
                 sx={{ display: "flex", alignItems: "center", gap: 1 }}
               >
@@ -151,21 +167,24 @@ const English02 = () => {
               { title: "Verb Day 22", date: "20 Sept 2024" },
               { title: "Verb Day 21", date: "19 Sept 2024" },
               { title: "Verb Day 20", date: "18 Sept 2024" },
-              {
-                title: "My Neighborhood",
-                date: "16 Sept 2024 (Edited 16 Sept 2024)",
-              },
+              { title: "My Neighborhood", date: "16 Sept 2024 (Edited 16 Sept 2024)" },
               { title: "Verb Day 19", date: "16 Sept 2024" },
             ].map((assignment, index) => (
               <Card
                 key={index}
-                sx={{ display: "flex", alignItems: "center", p: 2, mb: 2 }}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  p: 2,
+                  mb: 2,
+                  flexDirection: { xs: "column", sm: "row" }, // Adjust layout on smaller screens
+                }}
               >
-                <Button className="rounded-circle py-2 px-2 bg-primary me-3"> 
-                <ArticleIcon className="text-white "/>
+                <Button className="rounded-circle py-2 px-2 bg-primary me-3">
+                  <ArticleIcon className="text-white " />
                 </Button>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography fontWeight="bold">
+                <Box sx={{ flexGrow: 1, textAlign: { xs: "center", sm: "left" } }}>
+                  <Typography className="text-secondary fw-bold">
                     xWave Team posted a new assignment: {assignment.title}
                   </Typography>
                   <Typography sx={{ color: "gray" }}>

@@ -10,6 +10,7 @@ import English02 from './components/pages/English02';
 import ProfessionalDevelopment from './components/pages/ProfessionalDevelopment';
 import EnglishCommunication from './components/pages/EnglishCommunication';
 import Classroom from './components/pages/StreamButton';
+import MiniDrawer from './Layout/MiniDrawer';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,7 +21,7 @@ const App = () => {
 
   return (
     <Router>
-      <Header toggleDrawer={toggleDrawer} />
+    < MiniDrawer />
       <Sidebar open={sidebarOpen} toggleDrawer={toggleDrawer} />
       <div className="main-content">
         <Routes>
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/professional-development" element={<ProfessionalDevelopment />} />
           <Route path="/web-dev-frontend" element={<WebDevFrontend />} />
           <Route path="/EnlishComunication" element={<EnglishCommunication /> } />
+          <Route path="/MiniDrawer" element={  <MiniDrawer/> } />
           <Route path="*" element={<Navigate to="/" />} />
 
         </Routes>

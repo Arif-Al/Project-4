@@ -14,10 +14,13 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import { Form } from "react-bootstrap";
+ 
 
 const Classroom = () => {
   const [assignments, setAssignments] = useState([
@@ -64,6 +67,7 @@ const Classroom = () => {
   const OpenEnglishHome = () => {
     navigate("/english-02");
   };
+  const [filter, setFilter] = useState("All topics")
   return (
     <Container maxWidth="md">
       <Box
@@ -88,6 +92,21 @@ const Classroom = () => {
         </Box>
       </Box>
       <hr />
+      <Box className="my-3">
+        <div className="d-flex align-items-center text-primary my-3">
+          <AssignmentTurnedInIcon className="me-2" /> View your work
+        </div>
+        <Form.Select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="border rounded p-2 mt-2 w-50"
+        >
+          <option>All topics</option>
+          <option>Resources</option>
+          <option>Assignments</option>
+          <option>English by Wardah Noor</option>
+        </Form.Select>
+      </Box>
 
       {/* Create Assignment Button */}
       <Box display="flex" justifyContent="flex-end" my={2}>
