@@ -14,9 +14,9 @@ import {
 import {
   Videocam as VideocamIcon,
   CalendarToday as CalendarTodayIcon,
-  CloudUpload as AddToDriveIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import AddToDriveIcon from "@mui/icons-material/AddToDrive";
 
 const peopleData = {
   teachers: [
@@ -44,57 +44,78 @@ const PeoplePage = () => {
     <Box>
       {/* Header Navigation Bar */}
       <Box
-        sx={{
-          width: { xs: "100%", md: "83%" }, // Full width on mobile, 83% on larger screens
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "12px 24px",
-          margin: "0 auto ", // Centers the header
-          marginTop: { xs: "0", md: "-4%" }, // Removes negative margin on small screens
-          flexWrap: "wrap", // Wrap items on smaller screens
-          gap: { xs: 2, md: 0 }, // Adjusts spacing on small screens
-        }}
-      >
-        {/* Navigation Buttons */}
-        <Box sx={{ display: "flex", gap: { xs: 2, md: 3 }, flexWrap: "wrap" }}>
-          <Button
-            sx={{ fontWeight: "bold", color: "#000", minWidth: "100px" }}
-            onClick={OpenEnglishHome}
-          >
-            Stream
-          </Button>
-          <Button
-            sx={{ fontWeight: "bold", color: "#000", minWidth: "100px" }}
-            onClick={handleNavigateClasswork}
-          >
-            Classwork
-          </Button>
-          <Button
-            sx={{
-              fontWeight: "bold",
-              color: "#000",
-              textDecoration: "underline",
-              minWidth: "100px",
-            }}
-          >
-            People
-          </Button>
-        </Box>
+  sx={{
+    width: { xs: "100%", md: "70%" },
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: { xs: "10px", md: "12px 24px" },
+    margin: "0 auto",
+    marginTop: { xs: "0", md: "-3%" },
+    gap: { xs: 1, md: 0 },
+    flexWrap: "wrap",
+  }}
+>
+  {/* Navigation Buttons */}
+  <Box
+    sx={{
+      display: "flex",
+      gap: { xs: 1, md: 3 },
+      flexWrap: "wrap",
+      overflowX: "auto",
+    }}
+  >
+    <Button
+      sx={{
+        fontWeight: "bold",
+        color: "#000",
+        fontSize: { xs: "0.8rem", md: "1rem" },
+      }}
+      onClick={OpenEnglishHome}
+    >
+      Stream
+    </Button>
+    <Button
+      sx={{
+        fontWeight: "bold",
+        color: "#000",
+     
+        fontSize: { xs: "0.8rem", md: "1rem" },
+      }}
+      onClick={handleNavigateClasswork}
+    >
+      Classwork
+    </Button>
+    <Button
+      sx={{
+        fontWeight: "bold",
+        color: "#000",
+        textDecoration: "underline",
+        fontSize: { xs: "0.8rem", md: "1rem" },
+      }}
+    >
+      People
+    </Button>
+  </Box>
 
-        {/* Icons */}
-        <Box sx={{ display: "flex", gap: { xs: 1, md: 2 } }}>
-          <IconButton>
-            <VideocamIcon />
-          </IconButton>
-          <IconButton>
-            <CalendarTodayIcon />
-          </IconButton>
-          <IconButton>
-            <AddToDriveIcon />
-          </IconButton>
-        </Box>
-      </Box>
+  {/* Icons */}
+  <Box sx={{ display: "flex", gap: { xs: 1, md: 2 } }}>
+    <IconButton>
+      <VideocamIcon fontSize="small" />
+    </IconButton>
+    <IconButton>
+      <CalendarTodayIcon fontSize="small" />
+    </IconButton>
+    <IconButton>
+      <AddToDriveIcon  fontSize="small" />
+    </IconButton>
+  </Box>
+</Box>
+
+{/* Responsive Horizontal Line */}
+<Box sx={{ width: "100%", mt: -4 }}>
+  <hr style={{ width: "100%", border: "1px solid #ddd" }} />
+</Box>
 
       {/* Page Content */}
       <Box

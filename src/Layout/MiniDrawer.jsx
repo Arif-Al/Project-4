@@ -686,3 +686,204 @@ export default function MiniDrawer() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from "react";
+// import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Box, Typography, AppBar, Toolbar, Collapse } from "@mui/material";
+// import DashboardIcon from "@mui/icons-material/Dashboard";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import BarChartIcon from "@mui/icons-material/BarChart";
+// import LayersIcon from "@mui/icons-material/Layers";
+// import MenuIcon from "@mui/icons-material/Menu";
+// import SchoolIcon from "@mui/icons-material/School";
+// import ExpandLess from "@mui/icons-material/ExpandLess";
+// import ExpandMore from "@mui/icons-material/ExpandMore";
+
+// const Header = () => {
+//   const [open, setOpen] = useState(false);
+//   const [enrolledOpen, setEnrolledOpen] = useState(false);
+
+//   const toggleDrawer = () => {
+//     setOpen(!open);
+//   };
+
+//   const toggleEnrolled = () => {
+//     setEnrolledOpen(!enrolledOpen);
+//   };
+
+//   return (
+//     <Box sx={{ display: "flex" }}>
+//       {/* Header */}
+//       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+//         <Toolbar>
+//         <IconButton color="inherit" onClick={toggleDrawer}>
+//             <MenuIcon />
+//           </IconButton>
+//           <SchoolIcon sx={{ mr: 2 }} />
+//           <Typography variant="h6" sx={{ flexGrow: 1 }}>
+//             Google Classroom
+//           </Typography>
+          
+//         </Toolbar>
+//       </AppBar>
+
+//       {/* Sidebar */}
+//       <Drawer
+//         variant="permanent"
+//         sx={{
+//           width: open ? 240 : 60,
+//           flexShrink: 0,
+//           "& .MuiDrawer-paper": {
+//             width: open ? 240 : 60,
+//             transition: "width 0.3s ease-in-out",
+//             overflowX: "hidden",
+//             mt: 8,
+//           },
+//         }}
+//       >
+//         <List>
+//           {[{ text: "Dashboard", icon: <DashboardIcon /> },
+//             { text: "Orders", icon: <ShoppingCartIcon /> },
+//             { text: "Reports", icon: <BarChartIcon /> },
+//             { text: "Integrations", icon: <LayersIcon /> }].map((item, index) => (
+//             <ListItem button key={index}>
+//               <ListItemIcon>{item.icon}</ListItemIcon>
+//               {open && <ListItemText primary={item.text} />}
+//             </ListItem>
+//           ))}
+
+//           {/* Enrolled with Dropdown */}
+//           <ListItem button onClick={toggleEnrolled}>
+//             <ListItemIcon>
+//               <SchoolIcon sx={{ mr: 2 }} />
+//             </ListItemIcon>
+//             {open && <ListItemText primary="Enrolled" />}
+//             {open && (enrolledOpen ? <ExpandLess /> : <ExpandMore />)}
+//           </ListItem>
+//           <Collapse in={enrolledOpen} timeout="auto" unmountOnExit>
+//             <List component="div" disablePadding>
+//               <ListItem button sx={{ pl: 4 }}>
+//                 <ListItemText primary="Course 1" />
+//               </ListItem>
+//               <ListItem button sx={{ pl: 4 }}>
+//                 <ListItemText primary="Course 2" />
+//               </ListItem>
+//             </List>
+//           </Collapse>
+//         </List>
+//       </Drawer>
+
+//       {/* Main Content */}
+//       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
+//         <Typography variant="h4">Dashboard</Typography>
+//         <Box
+//           sx={{
+//             display: "grid",
+//             gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr" },
+//             gap: 2,
+//             mt: 2,
+//           }}
+//         >
+//           <Box sx={{ backgroundColor: "#f0f0f0", height: 100 }}></Box>
+//           <Box sx={{ backgroundColor: "#f0f0f0", height: 100 }}></Box>
+//           <Box sx={{ backgroundColor: "#f0f0f0", height: 100 }}></Box>
+//           <Box sx={{ backgroundColor: "#f0f0f0", height: 100 }}></Box>
+//         </Box>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default Header;
+
