@@ -15,7 +15,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import image1 from "../assets/English.jpg";
 import image2 from "../assets/img_graduation.jpg";
-import image4 from "../assets/img_learnlanguage.jpg";
+
 import { useNavigate } from "react-router-dom";
 
 const cardData = [
@@ -25,42 +25,40 @@ const cardData = [
     due: "",
     avatar: "X",
     backgroundImage: image1,
+    link: "/english-02",
   },
   {
     title: "Web Dev Frontend S02",
     instructor: "xWave Team",
-    due: "Due Monday  ",
+    due: "Due Monday",
     post: "23:59 (Google Classroom-clone)",
     avatar: "X",
     backgroundImage: image2,
+    link: "/web-dev-frontend",
   },
   {
     title: "Professional Development",
     instructor: "xWave Team",
     due: "Due Monday",
-    post: " 26th Jan - 3rd Feb",
+    post: "26th Jan - 3rd Feb",
     avatar: "X",
     backgroundImage: image2,
+    link: "/professional-development",
   },
   {
     title: "English Communication",
     instructor: "xWave Team",
-    due: "Due today  ",
+    due: "Due today",
     post: "LinkedIn Post 19",
     avatar: "X",
     backgroundImage: image1,
-  },
-  {
-    title: "Xwave Digital Literacy",
-    instructor: "Asvad Sagheer",
-    due: "",
-    avatar: "A",
-    backgroundImage: image4,
+    link: "/English-Comunication",
   },
 ];
 
 const HomePage = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Grid container spacing={3}>
@@ -74,62 +72,53 @@ const HomePage = () => {
             key={index}
             sx={{ display: "flex" }}
           >
-            <Card 
-              className=""
+            <Card
               sx={{
                 borderRadius: 3,
                 overflow: "hidden",
                 width: "100%",
+                height: { xs: 250, sm: 280, md: 320, lg: 350 },
                 cursor: "pointer",
                 "&:hover": {
                   boxShadow: 6,
                 },
               }}
-              onClick={() => Navigate("/english-02")}
+              onClick={() => navigate(card.link)} // Navigate to different pages dynamically
             >
-              
               <Box
                 sx={{
                   color: "white",
                   backgroundImage: `url(${card.backgroundImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "40%",
                   p: 2,
                   display: "flex",
                   justifyContent: "space-between",
                 }}
               >
-                <ox>
-                  <Typography
-                    variant="subtitle1"
-                    className="my-3"
-                    sx={{ fontWeight: "bold" }}
-                  >
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
                     <Tooltip title={card.title} placement="top">
                       {card?.title.length > 15
                         ? `${card?.title.slice(0, 15)}...`
                         : card?.title}
                     </Tooltip>
                   </Typography>
-                  <Typography variant="body2" className="text-white">
-                    {card.instructor}
-                  </Typography>
-                </ox>
+                  <Typography variant="body2">{card.instructor}</Typography>
+                </Box>
                 <IconButton sx={{ color: "white" }}>
                   <MoreVertIcon />
                 </IconButton>
               </Box>
               <CardContent sx={{ position: "relative", minHeight: 120 }}>
                 {card.due && (
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {card.due}
-                  </Typography>
+                  <Typography variant="body2">{card.due}</Typography>
                 )}
-                {card.due && (
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {card.post}
-                  </Typography>
+                {card.post && (
+                  <Typography variant="body2">{card.post}</Typography>
                 )}
                 <Avatar
-                  className="fs-2"
                   sx={{
                     bgcolor: "#8E24AA",
                     color: "white",
@@ -151,7 +140,6 @@ const HomePage = () => {
                   <FolderOpenIcon />
                 </IconButton>
               </Box>
-         
             </Card>
           </Grid>
         ))}

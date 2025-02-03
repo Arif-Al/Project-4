@@ -1,75 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Container,
-  Button,
   Card,
   CardContent,
   IconButton,
-  Dialog,
-  TextField,
   Box,
+  TextField,
+  Button,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import {useNavigate } from "react-router-dom";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import { useNavigate } from "react-router-dom";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import { Form } from "react-bootstrap";
- 
 
 const Classroom = () => {
-  const [assignments, setAssignments] = useState([
-    { id: 1, title: "Verb Day 22", date: "20 Sept 2024" },
-    { id: 2, title: "Verb Day 21", date: "19 Sept 2024" },
-    { id: 3, title: "Verb Day 20", date: "18 Sept 2024" },
-  ]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [currentAssignment, setCurrentAssignment] = useState({
-    id: null,
-    title: "",
-    date: "",
-  });
+  const navigate = useNavigate();
 
-  const handleOpenDialog = (assignment = { id: null, title: "", date: "" }) => {
-    setCurrentAssignment(assignment);
-    setOpenDialog(true);
-  };
+  // Fetch assignments from localStorage
+  const [assignments, setAssignments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
-  const handleSaveAssignment = () => {
-    if (currentAssignment.id) {
-      setAssignments(
-        assignments.map((a) =>
-          a.id === currentAssignment.id ? currentAssignment : a
-        )
-      );
-    } else {
-      setAssignments([
-        ...assignments,
-        { ...currentAssignment, id: Date.now() },
-      ]);
+  useEffect(() => {
+    const savedAssignments = JSON.parse(localStorage.getItem("assignments"));
+    if (savedAssignments) {
+      setAssignments(savedAssignments);
     }
-    handleCloseDialog();
-  };
+  }, []);
 
   const handleDeleteAssignment = (id) => {
-    setAssignments(assignments.filter((a) => a.id !== id));
+    const updatedAssignments = assignments.filter((a) => a.id !== id);
+    setAssignments(updatedAssignments);
+    localStorage.setItem("assignments", JSON.stringify(updatedAssignments));
   };
-  const navigate = useNavigate();
+
   const OpenEnglishHome = () => {
     navigate("/english-02");
   };
-  const [filter, setFilter] = useState("All topics")
+  const handleNavigatePeoplePage = () => {
+    navigate("/PeoplePage");
+  };
+
+  const filteredAssignments = assignments.filter((assignment) =>
+    assignment.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ mt: -8 }}>
       <Box
         sx={{
           display: "flex",
@@ -77,117 +58,75 @@ const Classroom = () => {
           alignItems: "center",
           flexWrap: "wrap",
           gap: 2,
-          p: { xs: "0", md: 2 }, // Remove vertical padding by setting xs: 0
+          p: { xs: "0", md: 2 },
         }}
       >
         <Box>
           <Button onClick={OpenEnglishHome}>Stream</Button>
           <Button>Classwork</Button>
-          <Button>People</Button>
+          <Button onClick={handleNavigatePeoplePage}>People</Button>
         </Box>
         <Box sx={{ display: "flex", gap: 2 }}>
-          <VideocamIcon />
-          <CalendarTodayIcon />
-          <AddToDriveIcon />
+          <IconButton>
+            <VideocamIcon />
+          </IconButton>
+          <IconButton>
+            <CalendarTodayIcon />
+          </IconButton>
+          <IconButton>
+            <AddToDriveIcon />
+          </IconButton>
         </Box>
       </Box>
-      <hr />
+      <hr fullWidth />
       <Box className="my-3">
         <div className="d-flex align-items-center text-primary my-3">
           <AssignmentTurnedInIcon className="me-2" /> View your work
         </div>
-        <Form.Select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="border rounded p-2 mt-2 w-50"
-        >
-          <option>All topics</option>
-          <option>Resources</option>
-          <option>Assignments</option>
-          <option>English by Wardah Noor</option>
-        </Form.Select>
-      </Box>
 
-      {/* Create Assignment Button */}
-      <Box display="flex" justifyContent="flex-end" my={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={() => handleOpenDialog()}
-        >
-          Create Assignment
-        </Button>
+        {/* Search for assignments */}
+        <Box className="d-flex align-items-center justify-content-between">
+          <TextField
+            label="Search Assignments"
+            variant="outlined"
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+        </Box>
       </Box>
 
       {/* Assignments List */}
-      {assignments.map((assignment) => (
-        <Card key={assignment.id} sx={{ mb: 2, p: 2 }}>
-          <CardContent>
-            <Typography variant="h6">{assignment.title}</Typography>
-            <Typography variant="body2" color="textSecondary">
-              {assignment.date}
-            </Typography>
-            <Box display="flex" justifyContent="flex-end">
-              <IconButton
-                color="primary"
-                onClick={() => handleOpenDialog(assignment)}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                color="secondary"
-                onClick={() => handleDeleteAssignment(assignment.id)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </CardContent>
-        </Card>
-      ))}
-
-      {/* Dialog for Create/Edit Assignment */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <Box p={3}>
-          <Typography variant="h6">
-            {currentAssignment.id ? "Edit" : "Create"} Assignment
-          </Typography>
-          <TextField
-            label="Title"
-            fullWidth
-            value={currentAssignment.title}
-            onChange={(e) =>
-              setCurrentAssignment({
-                ...currentAssignment,
-                title: e.target.value,
-              })
-            }
-            sx={{ my: 2 }}
-          />
-          <TextField
-            label="Date"
-            fullWidth
-            value={currentAssignment.date}
-            onChange={(e) =>
-              setCurrentAssignment({
-                ...currentAssignment,
-                date: e.target.value,
-              })
-            }
-          />
-          <Box display="flex" justifyContent="flex-end" mt={2}>
-            <Button onClick={handleCloseDialog}>Cancel</Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSaveAssignment}
-              sx={{ ml: 2 }}
-            >
-              Save
-            </Button>
-          </Box>
-        </Box>
-      </Dialog>
+      {filteredAssignments.length > 0 ? (
+        filteredAssignments.map((assignment) => (
+          <Card key={assignment.id} sx={{ mb: 2, p: 2 }}>
+            <CardContent>
+              <Typography variant="h6">{assignment.title}</Typography>
+              <Typography variant="body2" sx={{ color: "gray" }}>
+                {assignment.date}
+              </Typography>
+              <Typography sx={{ mt: 1 }}>{assignment.description}</Typography>
+              <Box display="flex" justifyContent="flex-end">
+                <IconButton
+                  color="primary"
+                  onClick={() => {} /* Handle Edit assignment */}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => handleDeleteAssignment(assignment.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <Typography>No assignments found.</Typography>
+      )}
     </Container>
   );
 };
