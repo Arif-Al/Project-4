@@ -1,0 +1,9 @@
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .background-section {
+      background-size: 100% auto; /* Mobile par bhi image width adjust ho */
+      background-position: top; /* Image ko top pe center karenge */
+      min-height: 100px; /* Optional: Adjust height for mobile */
+    }
+  }
+  

@@ -1,54 +1,80 @@
-// src/App.js
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
-import HomePage from "./components/pages/HomePage";
-import WebDevFrontend from "./components/pages/WebDevFrontend";
-import English02 from "./components/pages/English02";
-import ProfessionalDevelopment from "./components/pages/ProfessionalDevelopment";
-import EnglishCommunication from "./components/pages/EnglishCommunication";
-import Classroom from "./components/pages/StreamButton";
-import MiniDrawer from "./Layout/MiniDrawer";
-import PeoplePage from "./components/pages/People";
 
-const App = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { store } from "./Store/Store";
+import { Provider } from "react-redux";
+import MiniDrawer from "./Header/Header";
+import HeroSection from "./HeroSection/HeroSection"
+import Classroom from "./Classroom/Classroom"
+import English_Communication from "./English_Communication/English_Communication";
+import Professional_Development from "./Professional_Development/Professional_Development";
+import Web_Development_SO2 from "./Web_Development_SO2/Web_Development_SO2";
+import Classwork from "./Classwork/Classwork";
+import People from "./People/People";
+import English_02 from "./English 02/English_02";
 
-  const toggleDrawer = (open) => () => {
-    setSidebarOpen(open);
-  };
+
+
+
+
+
+function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: < MiniDrawer />,
+      errorElement: <> <h1> error </h1> </>,
+      children: [
+        {
+          path: "",
+          element: <HeroSection />,
+        },
+        {
+          path: "/Classroom",
+          element: <Classroom />,
+        },
+        {
+          path: "/Classwork",
+          element: <Classwork />,
+        },
+      
+       
+        {
+          path: "/English_Communication",
+          element: <English_Communication />,
+        },
+        {
+          path: "/English_02",
+          element: <English_02 />,
+        },
+       
+        {
+          path: "/Professional_Development",
+          element: <Professional_Development />,
+        },
+        
+        {
+          path: "/Web_Development_SO2",
+          element: <Web_Development_SO2 />,
+        },
+        {
+          path: "/People",
+          element: <People />,
+        },
+       
+       
+      ],
+    },
+  ]);
 
   return (
-    <Router>
-      <MiniDrawer />
-      <Sidebar open={sidebarOpen} toggleDrawer={toggleDrawer} />
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/english-02" element={<English02 />} />
-          <Route path="/classroom" element={<Classroom />} />
-          <Route path="/PeoplePage" element={<PeoplePage />} />
-          <Route
-            path="/professional-development"
-            element={<ProfessionalDevelopment />}
-          />
-          <Route path="/web-dev-frontend" element={<WebDevFrontend />} />
-          <Route
-            path="/English-Comunication"
-            element={<EnglishCommunication />}
-          />
-          {/* <Route path="/MiniDrawer" element={  <MiniDrawer/> } /> */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </div>
   );
-};
+}
 
 export default App;

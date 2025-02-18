@@ -1,0 +1,8 @@
+.Card1 {
+    background: linear-gradient(to right, #387eee, #125178) !important; /* Adding !important */
+    color: rgba(255, 255, 255, 0.9) !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
